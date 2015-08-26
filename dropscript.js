@@ -1,21 +1,32 @@
-$('#dropdown').hide();
-$('#dropdown').
-$('#dropdown ul ul').slideDown(1000);
+$('#dropdown').click(function(){
+  if($('#dropdown ul ul').children().is(":visible")){
+  $('#dropdown ul ul').slideUp(1000);
+  } else {
+  $('#dropdown ul ul').slideDown(1000);
+  }
+});
 
+$('#dropdown ul ul').children().mouseenter(function(){
+  $(this).css("background-color","green");
+  $(this).click(function(){
+    $('#dropdown h3').text($(this).text());
+    $('#dropdown ul ul').slideUp(1000);
+  });
+}).mouseleave(function(){
+  $(this).css("background-color","white");
+});
 
-
-
+$('select').hover(function(){
+    var count = $(this).children().length;
+    $(this).attr('size', count);
+     $(this).slideUp(3000);
+});
 
 // $( 'select' ).hover(
-
 //     function(){
 //       event.preventDefault();
-//       console.log('CONSOLE LOG');
-//       console.log($(this));
-
 //       $(this).trigger("click");
 //     }
-
 // );
 
 // $('option').hover(
@@ -24,8 +35,4 @@ $('#dropdown ul ul').slideDown(1000);
 //     $(this).css("background-color","green")
 //   })
 
-//$('select').click().show(1500);
-// $( 'select' ).click(function(){
-//   console.log($(this));
-//   $(this).after("WOW")
-// });
+
