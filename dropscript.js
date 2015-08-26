@@ -1,5 +1,6 @@
-
-$('#dropdown ul ul')
+$('#dropdown').hide();
+$('#dropdown').
+$('#dropdown ul ul').slideDown(1000);
 
 
 
