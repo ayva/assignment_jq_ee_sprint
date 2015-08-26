@@ -1,13 +1,27 @@
-var counter = function(str, limit){
+//Count amount of characters left
+var counter = function(str,limit){
   return (limit - str.length);
 };
 
-var numberRemain = function(limit, id) {
-  $(id).text(counter($('#textfield').val(), limit));
+//el represent this el we called keyup on
+var numberRemain = function(limit, el) {
+  $(el).next().text(counter($(el).val(),limit));
 };
 
-$('#textfield').parent().add("<p> New </p>");
-$('textarea').keyup(numberRemain(140, "text_area"));
-// $('input[type=password]').keyup(numberRemain(16));
+//Add p after all inputs
+$('input').after('<p></p>');
+
+$('#textfield').keyup(function() {
+  numberRemain(32, this);
+});
+
+$('input[type=password]').keyup(function() {
+  numberRemain(16, this);
+});
+
+$('textarea').keyup(function() {
+  numberRemain(140, this);
+});
+
 
 
