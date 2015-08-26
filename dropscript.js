@@ -3,20 +3,24 @@
 //   console.log($(this));
 //   $(this).after("WOW")
 // });
+$('select').hover(function(){
 
-$('#accordian').
+    var count = $(this).children().length;
+    $(this).attr('size', count);
+     $(this).slideUp(3000);
+}
 
-$( 'select' ).hover(
+// $( 'select' ).hover(
 
-    function(){
-      event.preventDefault();
-      console.log('CONSOLE LOG');
-      console.log($(this));
+//     function(){
+//       event.preventDefault();
+//       console.log('CONSOLE LOG');
+//       console.log($(this));
    
-      $(this).trigger("click");
-    }
+//       $(this).trigger("click");
+//     }
 
-);
+// );
 
 $('option').hover(
   function(){
