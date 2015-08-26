@@ -18,42 +18,61 @@ function enterCallback(){
   $(this).mousemove( moveCallback );
 }
 
-$('#image-container').mouseenter(enterCallback);
-
-$('#image-container').click(function(){
-    $(this).off('mousemove', moveCallback).off('mouseenter', enterCallback);
-
-    if ($('#person-selector').length === 0) {
-      $('#box').after('<ul id="person-selector"><li>Reports</li><li>Search</li><li>Graphs</li></ul>');
-      // $('#box').css({'height': '150px'});
-      $('#person-selector').css({ 'width': '100px',
+function person(){
+  $('#person-selector').css({ 'width':'100px',
+                                  'top': '100px',
+                                  'left': '-6px',
                                   'background-color': 'white',
                                   'position' : 'absolute',
-                                  'left': event.clientX-50,
-                                  'bottom' : event.clientY-50
+                                  'border': '6px solid white'
+         
                                 });
+}
+//Creates a box that moves with a mouse
+$('#image-container').mouseenter(enterCallback);
+
+//Freezes box and show choise on click
+$('#image-container').click(function(){
+    console.log("click on box and freeze it")
+  //Turns off mousemove and mouseenter to prevent moving box
+    $(this).off('mousemove', moveCallback).off('mouseenter', enterCallback);
+
+  //Adds a list of choises
+    if ($('#person-selector').length === 0) {
+      $('#box').append('<div id="person-selector"><li>Reports</li><li>Search</li><li>Graphs</li></div>');
+      //Style the choises
+      person();
     }
 });
+
+//
+$('img').click(function(){
+    console.log("click on img ");
+    $('#box').remove();
+    $('#image-container').mouseenter(enterCallback);
+
+}).stopPropogation;
+
 
 // $('#image-container').mouseleave(function(){
 //   $('#box').remove();
 //   $('#person-selector').remove();
 // });
 
-$('#person-selector').children().mouseenter(function(){
-  $(this).css("background-color","green");
-  console.log(this);
-  $(this).click(function(){
-    $(this).siblings().remove();
-  });
-}).mouseleave(function(){
+$('body').on("mouseenter","#person-selector li", function(){
+  console.log("allows to highlight green");
+  $(this).css("background-color","green");}
+  ).on("mouseleave","#person-selector li", function(){
   $(this).css("background-color","white");
 });
 
-$('select').hover(function(){
-    var count = $(this).children().length;
-    $(this).attr('size', count);
-     $(this).slideUp(3000);
-});
+
+
+// $('select').hover(function(){
+
+//     var count = $(this).children().length;
+//     $(this).attr('size', count);
+//      $(this).slideUp(3000);
+// });
 
 
