@@ -1,5 +1,5 @@
 function moveCallback(event){
-     box();
+    box();
 }
 
 function box(){
@@ -25,46 +25,51 @@ function person(){
                                   'background-color': 'white',
                                   'position' : 'absolute',
                                   'border': '6px solid white'
-         
+
                                 });
 }
 //Creates a box that moves with a mouse
 $('#image-container').mouseenter(enterCallback);
 
-//Freezes box and show choise on click
+//Freezes box and show choice on click
 $('#image-container').click(function(){
-    console.log("click on box and freeze it")
+    console.log("click on box and freeze it");
   //Turns off mousemove and mouseenter to prevent moving box
     $(this).off('mousemove', moveCallback).off('mouseenter', enterCallback);
 
-  //Adds a list of choises
+  //Adds a list of choices
     if ($('#person-selector').length === 0) {
-      $('#box').append('<div id="person-selector"><li>Reports</li><li>Search</li><li>Graphs</li></div>');
-      //Style the choises
+      $('#box').append('<div id="person-selector"><li>Person 1</li><li>Person 2</li><li>Person 3</li></div>');
+      //Style the choices
       person();
     }
 });
 
-//
-$('img').click(function(){
+//Creates a box on click after clicking out
+$('img').click(function(event){
+    event.stopPropagation();
     console.log("click on img ");
     $('#box').remove();
-    $('#image-container').mouseenter(enterCallback);
+    $('img').after('<div id="box"></div>');
+    $('#image-container').mousemove(moveCallback);
+});
 
-}).stopPropogation;
-
-
-// $('#image-container').mouseleave(function(){
-//   $('#box').remove();
-//   $('#person-selector').remove();
-// });
+$('#image-container').mouseleave(function(){
+  $('#box').remove();
+  $('#person-selector').remove();
+});
 
 $('body').on("mouseenter","#person-selector li", function(){
   console.log("allows to highlight green");
-  $(this).css("background-color","green");}
-  ).on("mouseleave","#person-selector li", function(){
+  $(this).css("background-color","green");
+  $(this).click(function(){$(this).siblings().remove();});
+
+  $('img').after($('#box').clone()).removeAttr('id').addAttr('id', 'fixed-box');
+
+  }).on("mouseleave","#person-selector li", function(){
   $(this).css("background-color","white");
 });
+
 
 
 
