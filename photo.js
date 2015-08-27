@@ -1,6 +1,8 @@
 function moveCallback(event){
-    console.log("box styled and linked to move")
+
+    console.log("box styled and linked to move");
      box();
+
 }
 
 function box(){
@@ -15,7 +17,7 @@ function box(){
 }
 
 function enterCallback(){
-  console.log("div for box added")
+  console.log("div for box added");
   $('img').after('<div id="box"></div>');
   $(this).mousemove( moveCallback );
 }
@@ -27,34 +29,37 @@ function person(){
                                   'background-color': 'white',
                                   'position' : 'absolute',
                                   'border': '6px solid white'
-         
+
                                 });
 }
 //===============================================
 //Creates a box that moves with a mouse
 $('#image-container').mouseenter(enterCallback);
 
-//Freezes box and show choise on click
+//Freezes box and show choice on click
 $('#image-container').click(function(){
-    console.log("click on box and freeze it")
+    console.log("click on box and freeze it");
   //Turns off mousemove and mouseenter to prevent moving box
     $(this).off('mousemove', moveCallback).off('mouseenter', enterCallback);
 
-  //Adds a list of choises
+  //Adds a list of choices
+  console.log($('#person-selector').length);
     if ($('#person-selector').length === 0) {
-      $('#box').append('<div id="person-selector"><li>Reports</li><li>Search</li><li>Graphs</li></div>');
-      //Style the choises
+      $('#box').append('<div id="person-selector"><li>Person 1</li><li>Person 2</li><li>Person 3</li></div>');
+      console.log("new person list appended!");
+      //Style the choices
       person();
     }
 });
 
-//
-$('img').click(function(){
+//Creates a box on click after clicking out
+$('img').click(function(event){
+    event.stopPropagation();
     console.log("click on img ");
     $('#box').remove();
-    $('#image-container').mouseenter(enterCallback);
-
-}).stopPropagation;
+    $('img').after('<div id="box"></div>');
+    $('#image-container').mousemove(moveCallback);
+});
 
 
 // $('#image-container').mouseleave(function(){
@@ -64,10 +69,21 @@ $('img').click(function(){
 
 $('body').on("mouseenter","#person-selector li", function(){
   console.log("allows to highlight green");
-  $(this).css("background-color","green");}
-  ).on("mouseleave","#person-selector li", function(){
+  $(this).css("background-color","green");
+  $(this).click(function(){$(this).siblings().remove();});
+
+ 
+  $('img').after($('#box').clone());
+  $('#box').first().attr("id","");
+  $('.other').after($('#person-selector').clone());
+  $('#person-selector').first().attr("id","");
+  $('#box').remove();
+  $('#person-selector').remove();
+ 
+  }).on("mouseleave","#person-selector li", function(){
   $(this).css("background-color","white");
 });
+
 
 
 
