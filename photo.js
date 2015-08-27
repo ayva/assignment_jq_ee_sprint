@@ -1,4 +1,5 @@
 function moveCallback(event){
+    console.log("box styled and linked to move")
      box();
 }
 
@@ -14,6 +15,7 @@ function box(){
 }
 
 function enterCallback(){
+  console.log("div for box added")
   $('img').after('<div id="box"></div>');
   $(this).mousemove( moveCallback );
 }
@@ -28,6 +30,7 @@ function person(){
          
                                 });
 }
+//===============================================
 //Creates a box that moves with a mouse
 $('#image-container').mouseenter(enterCallback);
 
@@ -51,7 +54,7 @@ $('img').click(function(){
     $('#box').remove();
     $('#image-container').mouseenter(enterCallback);
 
-}).stopPropogation;
+}).stopPropagation;
 
 
 // $('#image-container').mouseleave(function(){
